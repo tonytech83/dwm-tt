@@ -1,0 +1,3 @@
+set linenumbers
+
+include "/usr/share/nano/*.nanorc"
