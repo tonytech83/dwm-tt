@@ -39,9 +39,9 @@ static const char *const autostart[] = {
   "flameshot", NULL,
   "dunst", NULL,
   "picom", "--animations", "-b", NULL,
-  "sh", "-c", "feh --randomize --bg-fill /home/tonytech/Pictures/backgrounds/*", NULL,
+  "sh", "-c", "feh --randomize --bg-fill /home/tonytech/Pictures/backgrounds/*", NULL, // change user name
 //  "synergy", NULL,
-  "slstatus", NULL,
+//  "slstatus", NULL,
   NULL /* terminate */
 };
 
@@ -58,18 +58,18 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
+	//{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "kitty",   NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ "alacritty",   NULL,     NULL,       0,         0,          1,           0,        -1 },
-	{ "terminator",	 NULL,     NULL,       0,         0,          1,           0,        -1 },
+	//{ "alacritty",   NULL,     NULL,       0,         0,          1,           0,        -1 },
+	//{ "terminator",	 NULL,     NULL,       0,         0,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
-static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
-static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+static const float mfact        = 0.6;  /* factor of master area size [0.05..0.95] */
+static const int nmaster        = 1;    /* number of clients in master area */
+static const int resizehints    = 0;    /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 1;    /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -88,7 +88,8 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-#define STATUSBAR "dwmblocks"
+//#define STATUSBAR "dwmblocks"
+
 /* commands */
 static const char *launchercmd[] = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]  = { "kitty", NULL };
@@ -98,16 +99,28 @@ static Key keys[] = {
 	{ MODKEY,                       XK_r,          spawn,                  {.v = launchercmd} }, // spawn rofi for launching other programs
 	{ MODKEY|ControlMask,           XK_r,          spawn,                  SHCMD ("protonrestart")}, // restart protonvpn
 	{ MODKEY,                       XK_x,          spawn,                  {.v = termcmd } }, // spawn a terminal
+
+	// web browser
 	{ MODKEY,                       XK_w,          spawn,                  SHCMD ("xdg-open https://")}, // open default browser
+
+	// flameshot
 	{ MODKEY,                       XK_p,          spawn,                  SHCMD ("flameshot full -p /media/drive/Screenshots/")}, // capture full screen screenshot
 	{ MODKEY|ShiftMask,             XK_p,          spawn,                  SHCMD ("flameshot gui -p /media/drive/Screenshots/")}, // open flameshot gui for screenshot selection
 	{ MODKEY|ControlMask,           XK_p,          spawn,                  SHCMD ("flameshot gui --clipboard")}, // copy screenshot to clipboard
+
+	// thunar
 	{ MODKEY,                       XK_e,          spawn,                  SHCMD ("GTK_THEME=Adwaita-dark thunar")}, // open thunar file manager
+
+	// looking-glass
 	{ MODKEY,                       XK_b,          spawn,                  SHCMD ("looking-glass-client -F")}, // start Looking glass
+
+	// backlight brightness
 	{ 0,                            0x1008ff02,    spawn,                  SHCMD ("xbacklight -inc 10")}, // increase backlight brightness
 	{ 0,                            0x1008ff03,    spawn,                  SHCMD ("xbacklight -dec 10")}, // decrease backlight brightness
 	{ 0,                            0x1008ff1b,    spawn,                  SHCMD ("xbacklight -inc 10")}, // increase backlight brightness
 	{ 0,                            0x1008ff8e,    spawn,                  SHCMD ("xbacklight -dec 10")}, // decrease backlight brightness
+
+	// audio
 	{ 0,                            0x1008ff11,    spawn,                  SHCMD ("amixer sset Master 5%- unmute")}, // unmute volume
 	{ 0,                            0x1008ff12,    spawn,                  SHCMD ("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')")}, // toggle mute/unmute
 	{ 0,                            0x1008ff13,    spawn,                  SHCMD ("amixer sset Master 5%+ unmute")}, // unmute volume
@@ -125,6 +138,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_o,          setcfact,               {.f =  0.00} }, // reset client area
 	{ MODKEY,                       XK_Return,     zoom,                   {0} }, // moves the currently focused window to/from the master area (for tiled layouts)
 	{ MODKEY,                       XK_Tab,        view,                   {0} }, // view last focused tag
+
+	// kill window
 	{ MODKEY,                       XK_q,          killclient,             {0} }, // close the currently focused window
 	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} }, // set tile layout
 	{ MODKEY,                       XK_f,          setlayout,              {.v = &layouts[1]} }, // set floating layout
@@ -142,8 +157,12 @@ static Key keys[] = {
 	TAGKEYS(                        XK_3,                                  2)
 	TAGKEYS(                        XK_4,                                  3)
 	TAGKEYS(                        XK_5,                                  4)
+
+	// kill dwm
 	{ MODKEY|ShiftMask,             XK_q,          quit,                   {0} }, // exit dwm
-	{ MODKEY|ControlMask,           XK_q,          spawn,                  SHCMD("$HOME/.config/rofi/powermenu.sh")}, // exit dwm
+
+	// powermenu
+	{ MODKEY|ControlMask,           XK_q,          spawn,                  SHCMD("$HOME/.config/rofi/powermenu.sh")}, // spawn powermenu
 	{ MODKEY|ControlMask|ShiftMask, XK_r,          spawn,                  SHCMD("systemctl reboot")}, // reboot system
 	{ MODKEY|ControlMask|ShiftMask, XK_s,          spawn,                  SHCMD("systemctl suspend")}, // suspend system
 };
