@@ -1,9 +1,0 @@
-#!/bin/sh
-
-### BATTERY ###
-bat() {
-         battery="$(cat /sys/class/power_supply/BAT0/capacity)"
-         icon=""
-         printf "%s %s" "$icon" "$battery%"
-}
-bat
