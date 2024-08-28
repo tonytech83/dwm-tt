@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cpu=$(grep -o "^[^ ]*" /proc/loadavg)
+icon=""
+printf " %s %s" "$icon" "$cpu%"
