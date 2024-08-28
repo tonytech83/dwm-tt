@@ -5,7 +5,8 @@ interval=0
 ### Time ###
 tm() {
 	time="$(date +"%H:%M:%S")"
-	printf "%s" "$time"
+	icon=""
+	printf "%s %s" "$icon" "$time"
 }
 
 ### RAM ###
@@ -25,7 +26,8 @@ cpu(){
 ### TEMP ###
 temp() {
 	temp="$(sed 's/000$/°C/' /sys/class/thermal/thermal_zone12/temp)"
-	printf "%s" "$temp"
+	icon=""
+	printf "%s %s" "$icon" "$temp"
 }
 
 ### BATTERY ###

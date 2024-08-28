@@ -1,26 +1,27 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 10;       /* gaps between windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = {"Iosevka:style:medium:size=22" ,"JetBrainsMono Nerd Font Mono:style:medium:size=19" };
+static const unsigned int borderpx    = 1;        /* border pixel of windows */
+static const unsigned int gappx       = 10;       /* gaps between windows */
+static const unsigned int snap        = 32;       /* snap pixel */
+static const int showbar              = 1;        /* 0 means no bar */
+static const int topbar               = 1;        /* 0 means bottom bar */
+static const char *fonts[]            = {"Iosevka:style:medium:size=14" ,"JetBrainsMono Nerd Font Mono:style:medium:size=19" };
 //static const char *fonts[]          = { "monospace:size=12", "FontAwesome5Brands:size=14:antialias:true", "FontAwesome5Free:size=14:antialias:true", "FontAwesome5Free:style=Solid:size=14:antialias:true"};
 //static const char *fonts[]          = { "JetBrainsMono Nerd Font Mono:style:medium:size=14", "Siji:size=40", "fontAwesome:style:bold:size=40" }; //"JoyPixels:pixelsize=32", "Siji:size=40",
 //static const char font[]            = "-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const unsigned int baralpha = 0xd0;
+static const char norm_border_col[]   = "#3B4252";
+static const char norm_bg_col[]       = "#2E3440";
+static const char norm_fg_col[]       = "#D8DEE9";
+static const char sel_border_col[]    = "#434C5E";
+static const char sel_bg_col[]        = "#434C5E";
+static const char sel_fg_col[]        = "#ECEFF4";
+static const unsigned int baralpha    = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { norm_fg_col, norm_bg_col, norm_border_col },
+	[SchemeSel]  = { sel_fg_col, sel_bg_col, sel_border_col  },
 };
 static const unsigned int alphas[][3]      = {
     /*               fg      bg        border*/
@@ -28,8 +29,18 @@ static const unsigned int alphas[][3]      = {
     [SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 };
 
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+const char *spcmd1[] = {"keepassxc", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"keepassxc",   spcmd1},
+};
+
 /* tagging */
-static const char *tags[] = { "", "", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -38,7 +49,8 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Cromium",  NULL,       NULL,       1 << 2,       0,           -1 },
+	{ "brave",    NULL,       NULL,       1 << 2,       0,           -1 },
+	{ NULL,       "keepassxc",NULL,       SPTAG(0),     1,   	 -1 },
 };
 
 /* layout(s) */
@@ -72,9 +84,9 @@ static const char *termcmd[]  = { "kitty", NULL };
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_x,      spawn,          {.v = termcmd } },
-        { MODKEY,                       XK_r,      spawn,          {.v = launchercmd } },
-        { MODKEY,                       XK_w,      spawn,          SHCMD ("brave") },
-        { MODKEY,		        XK_e,      spawn,          SHCMD ("thunar") },
+    { MODKEY,                       XK_r,      spawn,          {.v = launchercmd } },
+    { MODKEY,                       XK_w,      spawn,          SHCMD ("brave --high-dpi-support=1 --force-device-scale-factor=2") },
+    { MODKEY,	        	        XK_e,      spawn,          SHCMD ("thunar") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -96,6 +108,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,            			XK_y,  	   togglescratch,  {.ui = 0 } },
+	{ MODKEY,            			XK_u,	   togglescratch,  {.ui = 1 } },
+	{ MODKEY,            			XK_x,	   togglescratch,  {.ui = 2 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -118,7 +133,7 @@ static const Button buttons[] = {
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkClientWin,         MODKEY,         Button1,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
