@@ -46,7 +46,7 @@ bat() {
 
 ### VOLUME ###
 vol(){
-        #vol="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $4":"$2}')"
+       	#vol="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $4":"$2}')"
 	vol="$(pactl list sinks | awk '/Volume:/ {print $5}' | head -n 1 | tr -d '%')%"
         icon=""
         printf "%s %s" "$icon" "$vol"
