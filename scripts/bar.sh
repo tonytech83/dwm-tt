@@ -39,13 +39,25 @@ temp() {
 
 ### BATTERY ###
 bat() {
-#	cap=$(cat /sys/class/power_supply/BAT0/capacity)
-#	if [ $cap eq 100) ]; then
-#		icon=""
-#	elif [ $cap 
-        battery="$(cat /sys/class/power_supply/BAT0/capacity)"
-        icon=""
-        printf "%s %s" "$icon" "$battery%"
+
+    cap="$(cat /sys/class/power_supply/BAT0/capacity)"
+    stat="$(cat /sys/class/power_supply/BAT0/status)"
+		
+	if [ "$stat" = "Charging" ]; then
+		icon=""
+	else
+		if [ "$cap" -le 24 ]; then
+			icon=""
+		elif [ "$cap" -le 49 ]; then
+			icon=""
+		elif [ "$cap" -le 74 ]; then
+			icon=""
+		elif [ "$cap" -le 94 ]; then
+			icon=""
+		fi
+	fi
+
+	printf "%s %s" "$icon" "$cap%"
 }
 
 ### VOLUME ###

@@ -34,9 +34,11 @@ typedef struct {
 	const void *cmd;
 } Sp;
 const char *spcmd1[] = {"keepassxc", NULL };
+const char *spcmd2[] = {"rofi-wifi-menu.sh", NULL };
 static Sp scratchpads[] = {
-	/* name          cmd  */
-	{"keepassxc",   spcmd1},
+	/* name          		cmd  */
+	{"keepassxc",   		spcmd1},
+	{"rofi-wifi-menu.sh", 	spcmd2},
 };
 
 static const char *const autostart[] = {
@@ -110,15 +112,16 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_space,  		setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,		togglefloating, {0} },
 	{ 0,                            XF86XK_AudioLowerVolume,   spawn,          SHCMD ("amixer sset Master 5%- unmute")},
-        { 0,                            XF86XK_AudioMute,          spawn,          SHCMD ("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')")},
-        { 0,                            XF86XK_AudioRaiseVolume,   spawn,          SHCMD ("amixer sset Master 5%+ unmute")},
+    { 0,                            XF86XK_AudioMute,          spawn,          SHCMD ("amixer sset Master $(amixer get Master | grep -q '\\[on\\]' && echo 'mute' || echo 'unmute')")},
+    { 0,                            XF86XK_AudioRaiseVolume,   spawn,          SHCMD ("amixer sset Master 5%+ unmute")},
 	{ MODKEY,                       XK_0,      		view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      		tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  		focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, 		focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  		tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, 		tagmon,         {.i = +1 } },
-	{ MODKEY,       		XK_y,			togglescratch,  {.ui = 0 } },
+	{ MODKEY,       				XK_y,			togglescratch,  {.ui = 0 } },
+	{ MODKEY,       				XK_u,			togglescratch,  {.ui = 1 } },
 	{ MODKEY,                       XK_Left,   		shiftview,      {.i = -1 } },
 	{ MODKEY,                       XK_Right,  		shiftview,      {.i = +1 } },
 //	{ MODKEY,            		XK_u,	   togglescratch,  {.ui = 1 } },
