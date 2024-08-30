@@ -8,7 +8,8 @@ static const unsigned int gappx       = 10;       /* gaps between windows */
 static const unsigned int snap        = 32;       /* snap pixel */
 static const int showbar              = 1;        /* 0 means no bar */
 static const int topbar               = 1;        /* 0 means bottom bar */
-static const char *fonts[]            = {"Iosevka:style:medium:size=13" ,"JetBrainsMono Nerd Font Mono:style:medium:size=19" };
+//static const char *fonts[]	     = { "JetBrainsMono Nerd Font Mono:style:medium:size=19" };	
+static const char *fonts[]            = { "monospace:style:bold:size:12" }; // {"Iosevka:style:medium:size=13" ,"JetBrainsMono Nerd Font Mono:style:medium:size=19" };
 static const char norm_border_col[]   = "#3B4252";
 static const char norm_bg_col[]       = "#2E3440";
 static const char norm_fg_col[]       = "#D8DEE9";

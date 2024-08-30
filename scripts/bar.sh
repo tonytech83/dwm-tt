@@ -39,9 +39,13 @@ temp() {
 
 ### BATTERY ###
 bat() {
-         battery="$(cat /sys/class/power_supply/BAT0/capacity)"
-         icon=""
-         printf "%s %s" "$icon" "$battery%"
+#	cap=$(cat /sys/class/power_supply/BAT0/capacity)
+#	if [ $cap eq 100) ]; then
+#		icon=""
+#	elif [ $cap 
+        battery="$(cat /sys/class/power_supply/BAT0/capacity)"
+        icon=""
+        printf "%s %s" "$icon" "$battery%"
 }
 
 ### VOLUME ###
@@ -54,12 +58,14 @@ vol(){
 
 ### Wifi ###
 wifi() {
-	if [ "$(cat /sys/class/net/w*/operstate 2>/dev/null)" = 'up' ] ; then
-        	wifiicon="$(awk '/^\s*w/ { print "📶", int($3 * 100 / 70) "%" }' /proc/net/wireless)"
-	elif [ "$(cat /sys/class/net/w*/operstate 2>/dev/null)" = 'down' ] ; then
-        	[ "$(cat /sys/class/net/w*/flags 2>/dev/null)" = '0x1003' ] && wifiicon="📡 " || wifiicon="❌ "
+	if [ "$(cat /sys/class/net/e*/operstate 2>/dev/null)" = 'up' ] ; then
+        	icon=""
+	elif [ "$(cat /sys/class/net/w*/operstate 2>/dev/null)" = 'up' ] ; then
+        	icon=""
+	else
+		icon=""
 	fi
-	printf "%s" "$wifiicon"
+	printf "%s" "$icon"
 }
 
 # Initial updates
