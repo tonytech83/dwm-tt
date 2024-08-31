@@ -40,6 +40,9 @@ static Sp scratchpads[] = {
 
 /* cool autostart */
 static const char *const autostart[] = {
+    "xset", "s", "off", NULL,
+    "xset", "s", "noblank", NULL,
+    "xset", "-dpms", NULL,
 	"dbus-update-activation-environment", "--systemd", "--all", NULL,
 	"picom", "-b", NULL,
 	NULL /* terminate */
@@ -53,14 +56,13 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    	title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       	NULL,       0,            1,           -1 },
-	{ "brave",    NULL,       	NULL,       1 << 2,       0,           -1 },
-	{ NULL,       "keepassxc",	NULL,       SPTAG(0),     1,   	     -1 },
+	/* class      			instance    	title       tags mask     isfloating   monitor */
+	{ "thorium-browser",    NULL,       	NULL,       1 << 2,       0,           -1 },
+	{ NULL,       			"keepassxc",	NULL,       SPTAG(0),     1,   	     -1 },
 };
 
 /* layout(s) */
-static const float mfact        = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact        = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster        = 1;    /* number of clients in master area */
 static const int resizehints    = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
@@ -93,7 +95,8 @@ static const Key keys[] = {
 	/* modifier                     key        					function        argument */
 	{ MODKEY,                       XK_r,      					spawn,          {.v = launchercmd } },
 	{ MODKEY,                       XK_x,      					spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_w,      					spawn,          SHCMD ("brave") },
+	{ MODKEY,                       XK_w,      					spawn,          SHCMD ("thorium-browser") },
+	{ MODKEY,        	            XK_e,               		spawn,          SHCMD ("thunar") },
 	{ MODKEY,                       XK_b,      					togglebar,      {0} },
 	{ MODKEY,                       XK_j,      					focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      					focusstack,     {.i = -1 } },
@@ -123,6 +126,11 @@ static const Key keys[] = {
 	/* scratchpads */
 	{ MODKEY,       				XK_y,	   					togglescratch,  {.ui = 0 } },
 	{ MODKEY,       				XK_u,	   					togglescratch,  {.ui = 1 } },
+
+	/* shiftview*/
+	{ MODKEY,                       XK_Left,   					shiftview,      {.i = -1 } },
+	{ MODKEY,                       XK_Right,  					shiftview,      {.i = +1 } },
+
 	TAGKEYS(                        XK_1,                      					0)
 	TAGKEYS(                        XK_2,                      					1)
 	TAGKEYS(                        XK_3,                      					2)
@@ -133,6 +141,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      					7)
 	TAGKEYS(                        XK_9,                      					8)
 	{ MODKEY,                       XK_q,      					killclient,     {0} },
+	{ MODKEY|ControlMask,           XK_q,                       spawn,          SHCMD("powermenu.sh")},
 	{ MODKEY|ShiftMask,             XK_q,      					quit,           {0} },
 };
 

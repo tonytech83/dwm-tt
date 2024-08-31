@@ -54,6 +54,8 @@ bat() {
 			icon=""
 		elif [ "$cap" -le 94 ]; then
 			icon=""
+		else
+			icon=""
 		fi
 	fi
 
@@ -79,9 +81,6 @@ wifi() {
 	fi
 	printf "%s" "$icon"
 }
-
-# Initial updates
-vol
 
 # Main loop
 while true; do
