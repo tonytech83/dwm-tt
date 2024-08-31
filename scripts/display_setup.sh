@@ -1,7 +1,7 @@
 #!/bin/bash
 
 INTERNAL_DISPLAY="eDP-1"
-EXTERNAL_DISPLAY="HDMI-1"
+EXTERNAL_DISPLAY="DP-1-1"
 
 if xrandr | grep "$EXTERNAL_DISPLAY connected"; then
     # If external monitor is connected, use it as the primary display with 75Hz refresh rate
