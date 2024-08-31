@@ -69,6 +69,7 @@ makepkg -si
 ```
 
 ### Pathes:
+- alwayscenter
 - attachbelow
 - cool autostart
 - preserveonrestart
@@ -77,4 +78,5 @@ makepkg -si
 - tagshift (only shiftview)
 - underlinetags
 - winicon
+- wrap
 - https://github.com/antoniosarosi/dotfiles/blob/master/README.md#further-configuration-and-tools
