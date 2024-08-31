@@ -69,10 +69,12 @@ makepkg -si
 ```
 
 ### Pathes:
-- alpha
-- scratchpads
+- attachbelow
+- cool autostart
 - preserveonrestart
-- useless gap
-- attachbelow (non toggleable) https://dwm.suckless.org/patches/attachbelow/ - Make new clients attach below the selected client.
-- winicon https://dwm.suckless.org/patches/winicon/ - Enables dwm to show window icons.
+- scratchpads
+- systray
+- tagshift (only shiftview)
+- underlinetags
+- winicon
 - https://github.com/antoniosarosi/dotfiles/blob/master/README.md#further-configuration-and-tools

@@ -3,16 +3,18 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayonleft = 0;    /* 0: systray in the right corner, >0: systray on left of status text */
-static const unsigned int systrayspacing = 2;   /* systray spacing */
-static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray        = 1;        /* 0 means no systray */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:style:bold:size:12" };
+static const unsigned int borderpx  		= 1;        /* border pixel of windows */
+static const unsigned int snap      		= 32;       /* snap pixel */
+static const unsigned int systraypinning 	= 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayonleft 	= 0;    /* 0: systray in the right corner, >0: systray on left of status text */
+static const unsigned int systrayspacing 	= 2;   /* systray spacing */
+static const int systraypinningfailfirst 	= 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray        		= 1;        /* 0 means no systray */
+static const int showbar            		= 1;        /* 0 means no bar */
+static const int topbar             		= 1;        /* 0 means bottom bar */
+#define ICONSIZE 							16   /* icon size */
+#define ICONSPACING 						5 /* space between icon and title */
+static const char *fonts[]          	= { "monospace:style:bold:size:12" };
 static const char norm_border_col[]   = "#3B4252";
 static const char norm_bg_col[]       = "#2E3440";
 static const char norm_fg_col[]       = "#D8DEE9";
@@ -50,6 +52,11 @@ static const char *const autostart[] = {
 
 /* tagging */
 static const char *tags[] = { "", "", "", "" };
+
+static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
+static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
+static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
+static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
 
 static const Rule rules[] = {
 	/* xprop(1):
