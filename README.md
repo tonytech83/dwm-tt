@@ -68,6 +68,12 @@ cd yay
 makepkg -si
 ```
 
+### File Manager
+For a graphical one, I suggest thunar
+```sh
+sudo pacman -S thunar
+```
+
 ### Pathes:
 - alwayscenter
 - attachbelow
