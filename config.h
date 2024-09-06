@@ -12,16 +12,16 @@ static const int systraypinningfailfirst 	= 1;   /* 1: if pinning fails, display
 static const int showsystray        		= 1;        /* 0 means no systray */
 static const int showbar            		= 1;        /* 0 means no bar */
 static const int topbar             		= 1;        /* 0 means bottom bar */
-#define ICONSIZE 							16   /* icon size */
-#define ICONSPACING 						5 /* space between icon and title */
-static const char *fonts[]          	= { "monospace:style:bold:size:12" };
-static const char norm_border_col[]   = "#3B4252";
-static const char norm_bg_col[]       = "#2E3440";
-static const char norm_fg_col[]       = "#D8DEE9";
-static const char sel_border_col[]    = "#434C5E";
-static const char sel_bg_col[]        = "#434C5E";
-static const char sel_fg_col[]        = "#ECEFF4";
-static const char *colors[][3]      = {
+#define ICONSIZE 				(bh -4)  /* icon size */
+#define ICONSPACING 				5 /* space between icon and title */
+static const char *fonts[]          		= { "monospace:style:bold:size:13" };
+static const char norm_border_col[]   		= "#3B4252";
+static const char norm_bg_col[]       		= "#2E3440";
+static const char norm_fg_col[]       		= "#D8DEE9";
+static const char sel_border_col[]    		= "#434C5E";
+static const char sel_bg_col[]        		= "#434C5E";
+static const char sel_fg_col[]        		= "#ECEFF4";
+static const char *colors[][3]      		= {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { norm_fg_col, norm_bg_col, norm_border_col },
 	[SchemeSel]  = { sel_fg_col, sel_bg_col, sel_border_col  },
@@ -42,11 +42,14 @@ static Sp scratchpads[] = {
 
 /* cool autostart */
 static const char *const autostart[] = {
-    "xset", "s", "off", NULL,
-    "xset", "s", "noblank", NULL,
-    "xset", "-dpms", NULL,
+	"xset", "s", "off", NULL,
+	"xset", "s", "noblank", NULL,
+	"xset", "-dpms", NULL,
 	"dbus-update-activation-environment", "--systemd", "--all", NULL,
 	"picom", "-b", NULL,
+	"nm-applet", NULL,
+	"conky", "-c", "~/.config/conky/dwm/nord.conkyrc", NULL,
+	"sh", "-c", "feh --randomize --bg-fill ~/Pictures/wall/*", NULL,
 	NULL /* terminate */
 };
 
@@ -63,9 +66,11 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      			instance    	title       tags mask     isfloating   monitor */
-	{ "thorium-browser",    NULL,       	NULL,       1 << 2,       0,           -1 },
-	{ NULL,       			"keepassxc",	NULL,       SPTAG(0),     1,   	     -1 },
+	/* class      			instance    	title       tags mask   isfloating  monitor */
+	{ "kitty",				NULL,			NULL,		0,			0,			-1 },
+	{ "thorium-browser",    NULL,       	NULL,       1 << 2,     0,          -1 },
+	{ "thunar",             NULL,     		NULL,       0,			1,          -1 },
+	{ NULL,       			"keepassxc",	NULL,       SPTAG(0),   1,   	    -1 },
 };
 
 /* layout(s) */
@@ -148,8 +153,9 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      					7)
 	TAGKEYS(                        XK_9,                      					8)
 	{ MODKEY,                       XK_q,      					killclient,     {0} },
-	{ MODKEY|ControlMask,           XK_q,                       spawn,          SHCMD("powermenu.sh")},
+	{ MODKEY|ControlMask,           XK_q,                       spawn,          SHCMD("powermenu.sh") },
 	{ MODKEY|ShiftMask,             XK_q,      					quit,           {0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_s,                      	spawn,          SHCMD("systemctl suspend") },
 };
 
 /* button definitions */
