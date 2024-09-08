@@ -60,16 +60,16 @@ bat() {
 }
 
 ### Wifi ###
-wifi() {
-	if [ "$(cat /sys/class/net/e*/operstate 2>/dev/null)" = 'up' ] ; then
-        	icon=""
-	elif [ "$(cat /sys/class/net/w*/operstate 2>/dev/null)" = 'up' ] ; then
-        	icon=""
-	else
-		icon=""
-	fi
-	printf "^b$grey^ %s  ^d^" "$icon"
-}
+# wifi() {
+# 	if [ "$(cat /sys/class/net/e*/operstate 2>/dev/null)" = 'up' ] ; then
+#         	icon=""
+# 	elif [ "$(cat /sys/class/net/w*/operstate 2>/dev/null)" = 'up' ] ; then
+#         	icon=""
+# 	else
+# 		icon=""
+# 	fi
+# 	printf "^b$grey^ %s  ^d^" "$icon"
+# }
 
 ### VOLUME ###
 vol(){
@@ -97,5 +97,5 @@ tm() {
 while true; do
 	[ $interval = 0 ] || [ $(($interval % 3600)) = 0 ] # && updates=$(pkg_updates)
 	interval=$((interval + 1))
-	sleep 1 && xsetroot -name "$(btc) $(cpu)  $(temp)  $(mem)  $(bat) $(wifi) $(vol)  $(tm) "
+	sleep 1 && xsetroot -name "$(btc) $(cpu)  $(temp)  $(mem)  $(bat) $(vol)  $(tm) "
 done

@@ -75,14 +75,23 @@ sudo pacman -S thunar
 ```
 
 ### Pathes:
-- alwayscenter
-- attachbelow
+- barpadding
+- bottomstack
+- cfacts
+- colorful tags
 - cool autostart
+- dragmfact
+- dragcfact
+- fibonacci
+- gaplessgrid
+- horizgrid
+- movestack
+- notitle
 - preserveonrestart
-- scratchpads
-- systray
-- tagshift (only shiftview)
+- statuspadding
+- status2d
+- shiftview
 - underlinetags
+- vanitygaps
 - winicon
-- wrap
 - https://github.com/antoniosarosi/dotfiles/blob/master/README.md#further-configuration-and-tools

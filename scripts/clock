@@ -1,7 +1,0 @@
-#!/bin/sh
-
-clock=$(date '+%I')
-
-icon="📅"
-
-date "+%Y %b %d (%a) $icon%I:%M%p"
