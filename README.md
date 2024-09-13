@@ -94,4 +94,3 @@ sudo pacman -S thunar
 - underlinetags
 - vanitygaps
 - winicon
-- https://github.com/antoniosarosi/dotfiles/blob/master/README.md#further-configuration-and-tools
