@@ -151,7 +151,7 @@ static const Layout layouts[] = {
 static const char *launchercmd[] = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]     = { "kitty", NULL };
 static const char *browser[]     = { "thorium-browser", NULL };
-static const char *explorer[]     = { "thunar", NULL };
+static const char *explorer[]    = { "thunar", NULL };
 
 static const Key keys[] = {
     /* modifier                         key         function        argument */
