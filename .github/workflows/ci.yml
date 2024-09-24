@@ -1,0 +1,36 @@
+---
+
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build_and_releas:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            /var/cache/apt/archives
+          key: ${{ runner.os }}-apt-${{hashFiles('**/Makefile')}}
+          restore-keys: |
+            ${{runner.os}}-apt-
+
+      - name: Install dependicies
+        run: sudo apt-get update && sudo apt-get install -y libx11-dev libxft-dev libxinerama-dev
+
+      - name: Build
+        run: make
+        continue-on-error: true
+
+      - name: Check Build failure
+        if: ${{failure()}}
+        run: echo "Build failed, please check the logs for more details." && exit 1
+  
