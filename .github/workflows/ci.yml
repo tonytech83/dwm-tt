@@ -24,7 +24,7 @@ jobs:
             ${{runner.os}}-apt-
 
       - name: Install dependicies
-        run: sudo apt-get update && sudo apt-get install -y libx11-dev libxft-dev libxinerama-dev
+        run: sudo apt-get update && sudo apt-get install -y libx11-dev libxft-dev libxinerama-dev libimlib2-dev
 
       - name: Build
         run: make
