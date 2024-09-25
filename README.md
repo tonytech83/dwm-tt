@@ -74,6 +74,32 @@ For a graphical one, I suggest thunar
 sudo pacman -S thunar
 ```
 
+### Storage
+Another basic utility you might need is automounting external hard drives or USBs. For that I use udisks and udiskie. udisks is a dependency of udiskie, so we only need to install the last one. Install also ntfs-3g package to read and write NTFS formatted drives:
+```sh
+sudo pacman -S udiskie ntfs-3g
+```
+
+### Network
+We have configured the network through nmcli, but a graphical frontend is more friendly. I use nm-applet:
+```sh
+sudo pacman -S network-manager-applet
+```
+
+## _Xprofile_
+ In order to make them permanent, we need a couple things. First, install xinit:
+ ```sh
+ sudo pacman -S xorg-xinit
+ ```
+ Now you can use ~/.xprofile to run programs before your window manager starts:
+ ```sh
+ touch ~/.xprofile
+ ```
+ For example, if you place this in ~\\.xprofile:
+ ```sh
+ exec dwm
+ ```
+
 ### Pathes:
 - barpadding
 - bottomstack
