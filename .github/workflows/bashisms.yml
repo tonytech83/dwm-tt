@@ -13,30 +13,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2  # Ensures that at least 2 commits are fetched to perform a comparison
+      - run: git fetch origin main
 
-      # Fetch the base branch to compare the changes
-      - name: Fetch all branches
-        run: git fetch origin --prune
-
-      # Get the list of changed script files
       - name: Get a list of changed script files
         id: get_sh_files
         run: |
           sh_files=$(git diff --name-only origin/main HEAD scripts | grep '\.sh$' || true)
-          echo "sh_files=$sh_files" >> $GITHUB_ENV
-
+          echo "::set-output name=sh_files::$sh_files"
+      
       - name: Install devscripts
-        if: env.sh_files != ''
+        if: steps.get_sh_files.outputs.sh_files != ''
         run: sudo apt-get update && sudo apt-get install devscripts
 
       - name: Check for bashisms
-        if: env.sh_files != ''
+        if: steps.get_sh_files.outputs.sh_files != ''
         run: |
-          for file in ${{ env.sh_files }}; do
+          for file in ${{ steps.get_sh_files.outputs.sh_files }}; do
               if [[ -f "$file" ]]; then
                   checkbashisms "$file"
               fi
-          done
-
+          don
