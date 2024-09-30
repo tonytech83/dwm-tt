@@ -30,11 +30,13 @@ jobs:
 
       # Add a step to output the environment variable for debugging
       - name: Show found shell files
-        run: echo "Found shell files: ${{ env.sh_files }}"
+        run: |
+          echo "Found shell files: ${{ env.sh_files }}"
 
       - name: Install devscripts
         if: ${{ env.sh_files != '' }}
-        run: sudo apt-get update && sudo apt-get install devscripts
+        run: |
+          sudo apt-get update && sudo apt-get install devscripts
 
       - name: Check for bashisms
         if: ${{ env.sh_files != '' }}
