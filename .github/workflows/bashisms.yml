@@ -24,7 +24,7 @@ jobs:
       - name: Get a list of changed script files
         id: get_sh_files
         run: |
-          sh_files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} HEAD core/tabs | grep '\.sh$' || true)
+          sh_files=$(git diff --name-only origin/main HEAD core/tabs | grep '\.sh$' || true)
           echo "sh_files=$sh_files" >> $GITHUB_ENV
 
       - name: Install devscripts
