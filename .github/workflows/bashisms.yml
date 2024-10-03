@@ -22,9 +22,9 @@ jobs:
       - name: Get a list of changed script files
         id: get_sh_files
         run: |
-          sh_files=$(find ./ -type f -name "*.sh")
+          sh_files=$(find ./scripts -type f -name "*.sh")
           echo "Shell files: $sh_files"
-          echo "sh_files=$sh_files" >> $GITHUB_ENV
+          echo "sh_files=$(echo $sh_files | tr '\n' ' ')" >> $GITHUB_ENV
 
       # Add a step to output the environment variable for debugging
       - name: Show found shell files
