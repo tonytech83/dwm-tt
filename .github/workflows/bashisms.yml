@@ -19,16 +19,12 @@ jobs:
           fetch-depth: 0
 
       # Get the list of changed script files in the "scripts" folder
-      - name: Get a list of changed script files
+      - name: Get a list of script files
         id: get_sh_files
         run: |
           sh_files=$(find ./scripts -type f -name "*.sh")
           echo "Shell files: $sh_files"
           echo "sh_files=$(echo $sh_files | tr '\n' ' ')" >> $GITHUB_ENV
-
-      # Add a step to output the environment variable for debugging
-      - name: Show found shell files
-        run: "echo 'Found shell files: ${{ env.sh_files }}'"
 
       - name: Install devscripts
         if: ${{ env.sh_files != '' }}
