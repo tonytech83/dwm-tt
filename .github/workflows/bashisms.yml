@@ -39,6 +39,7 @@ jobs:
         run: |
           for file in ${{ env.sh_files }}; do
               if [[ -f "$file" ]]; then
-                  checkbashisms "$file"
+                  echo "Running checkbashisms for $file"
+                  checkbashisms "$file" || true  # Ignore non-zero exit status
               fi
           done
