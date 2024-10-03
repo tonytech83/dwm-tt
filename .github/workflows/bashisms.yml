@@ -2,6 +2,7 @@ name: Check for bashisms
 
 on:
   pull_request:
+    branches: [main]
     paths:
       - scripts/**
   merge_group:
@@ -12,20 +13,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # Ensures that at least 2 commits are fetched to perform a comparison
-
-      # Fetch all branches to compare the changes
-      - name: Fetch all branches
-        run: git fetch origin --prune
+          fetch-depth: 0
 
       # Get the list of changed script files in the "scripts" folder
       - name: Get a list of changed script files
         id: get_sh_files
         run: |
-          sh_files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} HEAD scripts | grep '\.sh$' || true)
-          echo "Changed shell files: $sh_files"
+          sh_files=$(find ./ -type f -name "*.sh")
+          echo "Shell files: $sh_files"
           echo "sh_files=$sh_files" >> $GITHUB_ENV
 
       # Add a step to output the environment variable for debugging
